@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bw7fwk8u1mpsx"]
+
+[ext_resource type="PackedScene" uid="uid://cufegeq1mft16" path="res://enemy_scenes/enemy.tscn" id="1_c7m8k"]
+[ext_resource type="Texture2D" uid="uid://oho8ovfoago2" path="res://assets/green_enemy.png" id="2_2gouj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfayb"]
+atlas = ExtResource("2_2gouj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6er51"]
+atlas = ExtResource("2_2gouj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vihp8"]
+atlas = ExtResource("2_2gouj")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fmsb5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfayb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6er51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vihp8")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2gouj"]
+radius = 7.071068
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5h11f"]
+radius = 7.071068
+
+[node name="GreenEnemy" unique_id=695784819 instance=ExtResource("1_c7m8k")]
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1039714701]
+sprite_frames = SubResource("SpriteFrames_fmsb5")
+animation = &"move"
+autoplay = "move"
+
+[node name="MoveComponent" parent="." index="1" unique_id=1527407004 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+velocity = Vector2(0, 40)
+
+[node name="StatsComponent" parent="." index="2" unique_id=1525417579]
+health = 3
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3" unique_id=920786621]
+rect = Rect2(-8, -7, 16, 14)
+
+[node name="FlashComponent" parent="." index="4" unique_id=530447264 node_paths=PackedStringArray("sprite")]
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="ShakeComponent" parent="." index="5" unique_id=385531367 node_paths=PackedStringArray("node")]
+node = NodePath("../AnimatedSprite2D")
+
+[node name="ScaleComponent" parent="." index="6" unique_id=1179451291 node_paths=PackedStringArray("sprite")]
+sprite = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" parent_id_path=PackedInt32Array(260212329) index="0" unique_id=918465230]
+shape = SubResource("CircleShape2D_2gouj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" parent_id_path=PackedInt32Array(1657976742) index="0" unique_id=2010169806]
+shape = SubResource("CircleShape2D_5h11f")

@@ -1,0 +1,12 @@
+class_name MoveInputComponent
+extends Node
+  
+@export var move_component:MoveComponent
+@export var move_stats:MoveStats
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var input_axis=Input.get_axis("ui_left","ui_right")
+	move_component.velocity=Vector2(input_axis*move_stats.speed,0)

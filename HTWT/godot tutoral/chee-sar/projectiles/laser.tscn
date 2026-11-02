@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://d0frh1bjj0fmj"]
+
+[ext_resource type="Script" uid="uid://c1t1uu1er5qnj" path="res://projectiles/laser.gd" id="1_8q7g5"]
+[ext_resource type="Texture2D" uid="uid://dvhqrhp2c147k" path="res://assets/laser_small.png" id="1_rl7n7"]
+[ext_resource type="Script" uid="uid://xwp3fj7ld7op" path="res://components/move_component.gd" id="2_8q7g5"]
+[ext_resource type="Script" uid="uid://758qiatb5qk5" path="res://components/scale_component.gd" id="4_i72jr"]
+[ext_resource type="Script" uid="uid://5aubfwvntg4h" path="res://components/flash_component.gd" id="5_1q6dw"]
+[ext_resource type="Script" uid="uid://clobk71flst8u" path="res://components/hitbox_component.gd" id="6_v4jka"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx8n8"]
+size = Vector2(4, 9)
+
+[node name="Laser" type="Node2D" unique_id=1334311457]
+script = ExtResource("1_8q7g5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1694800274]
+texture = ExtResource("1_rl7n7")
+
+[node name="MoveComponent" type="Node" parent="." unique_id=1489064595 node_paths=PackedStringArray("actor")]
+script = ExtResource("2_8q7g5")
+actor = NodePath("..")
+velocity = Vector2(0, -150)
+metadata/_custom_type_script = "uid://xwp3fj7ld7op"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=505934953]
+rect = Rect2(-2, -3, 4, 9)
+
+[node name="ScaleComponent" type="Node" parent="." unique_id=893288310 node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_i72jr")
+sprite = NodePath("../Sprite2D")
+scale_amount = Vector2(2, 2)
+scale_duration = 1.5
+metadata/_custom_type_script = "uid://758qiatb5qk5"
+
+[node name="FlashComponent" type="Node" parent="." unique_id=1072785887 node_paths=PackedStringArray("sprite")]
+script = ExtResource("5_1q6dw")
+sprite = NodePath("../Sprite2D")
+flash_duration = 0.1
+metadata/_custom_type_script = "uid://5aubfwvntg4h"
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1013459513]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_v4jka")
+metadata/_custom_type_script = "uid://clobk71flst8u"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=94949909]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_bx8n8")

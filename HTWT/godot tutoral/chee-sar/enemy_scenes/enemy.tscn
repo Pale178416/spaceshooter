@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cufegeq1mft16"]
+
+[ext_resource type="Script" uid="uid://dpu76wipprdb0" path="res://enemy_scenes/enemy.gd" id="1_fmsb5"]
+[ext_resource type="Script" uid="uid://xwp3fj7ld7op" path="res://components/move_component.gd" id="2_nx5ck"]
+[ext_resource type="Script" uid="uid://ckn0ltobjga2w" path="res://components/stats_component.gd" id="3_m35l8"]
+[ext_resource type="Script" uid="uid://5aubfwvntg4h" path="res://components/flash_component.gd" id="4_k1jho"]
+[ext_resource type="Script" uid="uid://dlo1qhuf7xk3k" path="res://components/shake_component.gd" id="5_7vdd1"]
+[ext_resource type="Script" uid="uid://758qiatb5qk5" path="res://components/scale_component.gd" id="6_esogg"]
+[ext_resource type="Script" uid="uid://clobk71flst8u" path="res://components/hitbox_component.gd" id="7_m35l8"]
+[ext_resource type="Script" uid="uid://bnid5avjarwqi" path="res://components/hurtbox_component.gd" id="8_k1jho"]
+[ext_resource type="Script" uid="uid://t05loim8h47p" path="res://components/hurt_component.gd" id="9_k1jho"]
+[ext_resource type="Script" uid="uid://b83m1d628k4n4" path="res://components/spawner_component.gd" id="10_mtyl8"]
+[ext_resource type="PackedScene" uid="uid://ddrvtfsy3064j" path="res://explosion_effect.tscn" id="11_0g6k7"]
+[ext_resource type="Script" uid="uid://bx4gki0y6h6t2" path="res://components/destroyed_component.gd" id="12_u3fw5"]
+
+[node name="Enemy" type="Node2D" unique_id=695784819]
+script = ExtResource("1_fmsb5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1039714701]
+
+[node name="MoveComponent" type="Node" parent="." unique_id=1527407004]
+script = ExtResource("2_nx5ck")
+metadata/_custom_type_script = "uid://xwp3fj7ld7op"
+
+[node name="StatsComponent" type="Node" parent="." unique_id=1525417579]
+script = ExtResource("3_m35l8")
+metadata/_custom_type_script = "uid://ckn0ltobjga2w"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=920786621]
+
+[node name="FlashComponent" type="Node" parent="." unique_id=530447264]
+script = ExtResource("4_k1jho")
+metadata/_custom_type_script = "uid://5aubfwvntg4h"
+
+[node name="ShakeComponent" type="Node" parent="." unique_id=385531367]
+script = ExtResource("5_7vdd1")
+metadata/_custom_type_script = "uid://dlo1qhuf7xk3k"
+
+[node name="ScaleComponent" type="Node" parent="." unique_id=1179451291]
+script = ExtResource("6_esogg")
+metadata/_custom_type_script = "uid://758qiatb5qk5"
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=260212329]
+collision_layer = 0
+script = ExtResource("7_m35l8")
+metadata/_custom_type_script = "uid://clobk71flst8u"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1657976742]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_k1jho")
+metadata/_custom_type_script = "uid://bnid5avjarwqi"
+
+[node name="HurtComponent" type="Node" parent="." unique_id=318556064 node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("9_k1jho")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+metadata/_custom_type_script = "uid://t05loim8h47p"
+
+[node name="SpawnerComponent" type="Node2D" parent="." unique_id=946733294]
+script = ExtResource("10_mtyl8")
+scene = ExtResource("11_0g6k7")
+metadata/_custom_type_script = "uid://b83m1d628k4n4"
+
+[node name="DestroyedComponent" type="Node" parent="." unique_id=1630815449 node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+script = ExtResource("12_u3fw5")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+destroy_effect_spawner_component = NodePath("../SpawnerComponent")
+metadata/_custom_type_script = "uid://bx4gki0y6h6t2"
